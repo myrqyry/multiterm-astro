@@ -5,14 +5,23 @@ backend:
 media_folder: "src/assets/images" # Media files will be stored in the repo under images/uploads
 
 collections:
-  - name: "blog" # Used in routes, e.g., /admin/collections/blog
-    label: "Blog" # Used in the UI
-    folder: "src/content/posts" # The path to the folder where the documents are stored
-    create: true # Allow users to create new documents in this collection
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
-    fields: # The fields for each document, usually in frontmatter
-      - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
+  - name: "blog"
+    label: "Blog"
+    folder: "src/content/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Featured Image", name: "image", widget: "image", optional: true}
+      - {label: "Publish Date", name: "published", widget: "datetime"}
+      - {label: "Author", name: "author", widget: "string", optional: true}
+      - {label: "Is Draft?", name: "draft", widget: "boolean", default: false, optional: true}
+      - {label: "Tags", name: "tags", widget: "list", optional: true}
+      - {label: "Description", name: "description", widget: "text", optional: true}
+      - label: "Cover Image"
+        name: "coverImage"
+        widget: "object"
+        optional: true
+        fields:
+          - {label: "Image", name: "src", widget: "image"}
+          - {label: "Alt Text", name: "alt", widget: "string"}
       - {label: "Body", name: "body", widget: "markdown"}
